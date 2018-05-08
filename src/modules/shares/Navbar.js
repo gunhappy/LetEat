@@ -22,14 +22,15 @@ export class Navbar extends Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: 'center',
+		justifyContent: 'center', 
+		flexDirection: 'row',
+		zIndex: 1,
 		borderBottomColor: colors.black,
-		borderBottomWidth: 2,
+		borderBottomWidth: 1,
 		backgroundColor: colors.background,
 		shadowColor: colors.black,
-		shadowOffset: { width: 0, height: 2 },
-		shadowOpacity: 0.8,
-		shadowRadius: 5
+		shadowOffset: { width: 0, height: 5 },
+		shadowOpacity: 1
 	}
 })
 
