@@ -19,12 +19,6 @@ export class TabMenu extends Component {
 		}
 	}
 
-	// checkAccessToken() {
-	// 	AccessToken.getCurrentAccessToken().then(data => {
-	// 		if (!data) Actions.loginPage()
-	// 	})
-	// }
-
 	px2dp(px) {
 		return px * deviceWidth / basePx
 	}
