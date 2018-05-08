@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "15424145950",
+    "firebase_url": "https://leteat-aea96.firebaseio.com",
+    "project_id": "leteat-aea96",
+    "storage_bucket": "leteat-aea96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15424145950:android:d45bd9378f98bd29",
+        "android_client_info": {
+          "package_name": "com.leteatproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15424145950-16uvr779ikqa0ru9734mruag3092c4f5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzonEPIFEKxAXKPAd04uy7cwJhYsX9UFk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
