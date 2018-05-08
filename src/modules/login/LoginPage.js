@@ -8,7 +8,7 @@ import { APP_FULL_WIDTH } from 'src/constants'
 import { AccessToken, LoginManager } from 'react-native-fbsdk'
 import UserActions from 'src/redux/actions/user'
 import { connect } from 'react-redux'
-import { Actions } from 'react-native-router-flux'
+// import { Actions } from 'react-native-router-flux'
 
 export class LoginPage extends Component {
 
@@ -17,19 +17,14 @@ export class LoginPage extends Component {
 	}
 
 	componentDidMount() {
-		this.checkTokenFromStorage()
+		// this.checkTokenFromStorage()
 	}
 
 	async checkTokenFromStorage() {
-		try {
-			const token = await AsyncStorage.getItem('@fb_token')
-			console.log(token, 'token')
-			if (token !== null) {
-				console.log(token, 'storage token')
-				Actions.tabMenu()
-			}
-		} catch (error) {
-			console.log('get token from storage error')
+		const token = await AsyncStorage.getItem('fb_token')
+		console.log(token, 'token from storage')
+		if (token !== null) {
+			this.props.loginWithFacebook(token)
 		}
 	}
 

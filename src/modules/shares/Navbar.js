@@ -12,7 +12,7 @@ export class Navbar extends Component {
 		return (
 			<View style={styles.container}>
 				<View style={{ justifyContent: 'center', alignItems: 'center' }}>
-					<Text style={{ color: colors.white, fontWeight: 'bold' }}>{this.props.title}</Text>
+					<Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 18 }}>{this.props.title}</Text>
 				</View>
 			</View>
 		)

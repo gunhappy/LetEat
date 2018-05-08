@@ -6,6 +6,10 @@ import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIc
 import TabNavigator from 'react-native-tab-navigator'
 import UserPage from 'src/modules/user/UserPage'
 import colors from 'src/constants/colors'
+import { connect } from 'react-redux'
+import UserActions from 'src/redux/actions/user'
+import { Actions } from 'react-native-router-flux'
+import { auth } from 'src/constants/firebase'
 
 const deviceWidth = Dimensions.get('window').width
 const basePx = 375
@@ -21,6 +25,27 @@ export class TabMenu extends Component {
 
 	px2dp(px) {
 		return px * deviceWidth / basePx
+	}
+
+	componentDidMount() {
+		console.disableYellowBox = true
+		this.setCurrentUser()
+	}
+
+	setCurrentUser() {
+		auth.onAuthStateChanged((user) => {
+			if (user !== null) {
+				const user_obj = {
+					uid: user.uid,
+					displayName: user.displayName,
+					photoURL: user.photoURL 
+				}
+				this.props.setCurrentUser(user_obj)
+			}
+			else {
+				Actions.login()
+			}
+		})
 	}
 
 	render() {
@@ -70,4 +95,10 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default TabMenu
+const mapDispatchToProps = dispatch => ({
+	setCurrentUser: user => {
+		dispatch(UserActions.setCurrentUser(user))
+	}
+})
+
+export default connect(null, mapDispatchToProps)(TabMenu)

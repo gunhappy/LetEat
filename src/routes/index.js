@@ -11,9 +11,9 @@ const App = () => (
 	<Provider store={store}>
 		<Router>
 			<Stack key="root">
-				<Scene key="login" component={LoginPage} hideNavBar={1} panHandlers={null} hideTabBar={1} direction='vertical' initial/>
-				<Scene key="home" component={HomePage} hideNavBar={1} panHandlers={null} hideTabBar={1} direction='vertical'/>
-				<Scene key="tabMenu" component={TabMenu} hideNavBar={1} panHandlers={null} hideTabBar={1} direction='vertical' />
+				<Scene key="login" component={LoginPage} hideNavBar={1} panHandlers={null} hideTabBar={1} type="reset" direction='vertical'/>
+				<Scene key="home" component={HomePage} hideNavBar={1} panHandlers={null} hideTabBar={1} direction='vertical' />
+				<Scene key="tabMenu" component={TabMenu} hideNavBar={1} panHandlers={null} hideTabBar={1} type="reset" direction='vertical' initial/>
 			</Stack>
 		</Router>
 	</Provider>

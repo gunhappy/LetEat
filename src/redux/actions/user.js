@@ -1,30 +1,30 @@
 import constants from 'src/redux/constants'
 import { Actions } from 'react-native-router-flux'
 import firebase from 'firebase'
-import { AsyncStorage } from 'react-native'
+import { auth, db } from 'src/constants/firebase'
 
 const UserActions = {
 	loginWithFacebook: token => async dispatch => {
 		dispatch(actions.loginFacebookRequest())
 		const credential = firebase.auth.FacebookAuthProvider.credential(token)
 		try {
-			const user = await firebase.auth().signInWithCredential(credential)
-			firebase.database().ref(`/users/${user.uid}`).set({
+			const user = await auth.signInWithCredential(credential)
+			const user_obj = {
 				uid: user.uid,
 				displayName: user.displayName,
 				photoURL: user.photoURL
-			})
-			try {
-				await AsyncStorage.setItem('@fb_token', token)
-			} catch (error) {
-				console.log('set token to storage error')
 			}
+			db.ref(`/users/${user.uid}`).set(user_obj)
 			dispatch(actions.loginFacebookSuccess())
 			Actions.tabMenu()
 		} catch (error) {
 			dispatch(actions.loginFacebookError())
 		}
-	}
+	},
+	setCurrentUser: user => ({
+		type: constants.SET_CURRENT_USER,
+		payload: user
+	})
 }
 
 const actions = {
