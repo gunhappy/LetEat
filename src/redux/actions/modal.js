@@ -18,6 +18,12 @@ const ModalActions = {
 	}),
 	hideCreateOrderModal: () => ({
 		type: constants.HIDE_CREATE_ORDER_MODAL
+	}),
+	showSummaryDetailModal: () => ({
+		type: constants.SHOW_SUMMARY_DETAIL_MODAL
+	}),
+	hideSummaryDetailModal: () => ({
+		type: constants.HIDE_SUMMARY_DETAIL_MODAL
 	})
 }
 

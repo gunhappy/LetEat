@@ -5,7 +5,8 @@ const initialState = {
 	currentUser: null,
 	loading: false,
 	error: false,
-	userSummary: null
+	userSummary: null,
+	summaryDetail: null
 }
 
 export default (state = initialState, action) => {
@@ -56,6 +57,12 @@ export default (state = initialState, action) => {
 			...state,
 			error: action.payload,
 			loading: false
+		}
+
+	case constants.SET_SUMMARY_DETAIL:
+		return {
+			...state,
+			summaryDetail: action.payload
 		}
 		
 	default:

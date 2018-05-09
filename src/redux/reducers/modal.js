@@ -45,6 +45,18 @@ export default (state = initialState, action) => {
 			...state,
 			showCreateOrderModal: false
 		}
+
+	case constants.SHOW_SUMMARY_DETAIL_MODAL:
+		return {
+			...state,
+			showSummaryDetailModal: true
+		}
+        
+	case constants.HIDE_SUMMARY_DETAIL_MODAL:
+		return {
+			...state,
+			showSummaryDetailModal: false
+		}
 	
 	default:
 		return state

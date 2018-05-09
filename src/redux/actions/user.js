@@ -77,7 +77,11 @@ const UserActions = {
 			dispatch(actions.getUserSummaryError())
 		}
 
-	}
+	},
+	setSummaryDetail: summary => ({
+		type: constants.SET_SUMMARY_DETAIL,
+		payload: summary
+	})
 }
 
 const actions = {

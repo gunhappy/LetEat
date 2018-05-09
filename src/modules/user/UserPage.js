@@ -8,6 +8,8 @@ import Tabs from 'src/modules/shares/Tabs'
 import UserList from 'src/modules/user/components/UserList'
 import UserActions from 'src/redux/actions/user'
 import SummaryCard from 'src/modules/user/components/SummaryCard'
+import ModalActions from 'src/redux/actions/modal'
+import SummaryDetailModal from 'src/modules/user/components/SummaryDetailModal'
 
 export class UserPage extends Component {
 
@@ -42,8 +44,8 @@ export class UserPage extends Component {
 											style={{ marginBottom: 20 }} 
 											key={index}
 											onPress={() => {
-												// this.props.setCurrentMenu(menu)
-												// this.props.setCurrentPage('menu')
+												this.props.setSummaryDetail(summary)
+												this.props.showSummaryDetailModal()
 											}}
 										>
 											<SummaryCard 
@@ -66,6 +68,7 @@ export class UserPage extends Component {
 						</View>
 					</Tabs>
 				</View>
+				<SummaryDetailModal />
 			</View>
 		)
 	}
@@ -94,6 +97,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	getUserSummary: (user_id) => {
 		dispatch(UserActions.getUserSummary(user_id))
+	},
+	showSummaryDetailModal: () => {
+		dispatch(ModalActions.showSummaryDetailModal())
+	},
+	setSummaryDetail: (summary) => {
+		dispatch(UserActions.setSummaryDetail(summary))
 	}
 })
 
