@@ -6,6 +6,6 @@ export default {
 	white: '#FFF',
 	black: '#000',
 	card: '#607D8B',
-	green: '#32CD32',
+	green: '#43B05C',
 	transparent: 'transparent'
 }
