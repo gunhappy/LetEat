@@ -22,7 +22,7 @@ export class UserPage extends Component {
 		return (
 			<View style={styles.container}>
 				<View style={styles.header}>
-					<Navbar title='Profile'/>
+					<Navbar title='Profile' logout/>
 				</View>
 				<View style={{ flexDirection: 'row', marginTop: 20, alignItems: 'center' }}>
 					<View style={{ marginLeft: 20, marginRight: 20 }}>

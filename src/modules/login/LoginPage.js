@@ -18,8 +18,7 @@ export class LoginPage extends Component {
 	_fbAuth() {
 		var self = this
 		LoginManager.logInWithReadPermissions([
-			'public_profile',
-			'user_friends'
+			'public_profile'
 		]).then(
 			function(result) {
 				if (result.isCancelled) {
