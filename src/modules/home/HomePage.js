@@ -32,16 +32,13 @@ export class HomePage extends Component {
 			name: 'add_restaurant',
 			position: 1
 		}]
-		if (this.props.restaurants) {
-			console.log(Object.keys(this.props.restaurants[0].menus).length, 'menusasdafs')
-		}
 		return (
 			<View style={styles.container}>
 				<View style={styles.header}>
 					<Navbar title='LetEat'/>
 				</View>
 				<View style={{ marginTop: 20, marginLeft: 40 }}>
-					<Text style={{ color: colors.white, fontWeight: 'bold' }}>Restaurant</Text>
+					<Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 18 }}>Restaurant</Text>
 				</View>
 				<ScrollView style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
 					{ this.props.restaurants ?

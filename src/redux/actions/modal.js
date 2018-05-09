@@ -12,6 +12,12 @@ const ModalActions = {
 	}),
 	hideCreateMenuModal: () => ({
 		type: constants.HIDE_CREATE_MENU_MODAL
+	}),
+	showCreateOrderModal: () => ({
+		type: constants.SHOW_CREATE_ORDER_MODAL
+	}),
+	hideCreateOrderModal: () => ({
+		type: constants.HIDE_CREATE_ORDER_MODAL
 	})
 }
 

@@ -32,6 +32,11 @@ export class TabMenu extends Component {
 	componentDidMount() {
 		console.disableYellowBox = true
 		this.setCurrentUser()
+		this.fetchData()
+	}
+
+	fetchData() {
+		this.props.getUsers()
 	}
 
 	setCurrentUser() {
@@ -109,6 +114,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	setCurrentUser: user => {
 		dispatch(UserActions.setCurrentUser(user))
+	},
+	getUsers: () => {
+		dispatch(UserActions.getUsers())
 	}
 })
 

@@ -21,6 +21,20 @@ const UserActions = {
 			dispatch(actions.loginFacebookError())
 		}
 	},
+	getUsers: () => async dispatch => {
+		dispatch(actions.getUsersRequest())
+		try {
+			const data = await db.ref('users').once('value')
+			var arrayData = []
+			data.forEach((element) => {
+				arrayData.push({ ...element.val() })
+			})
+			dispatch(actions.getUsersSuccess(arrayData))
+		} catch (error) {
+			dispatch(actions.getUsersError())
+		}
+
+	},
 	setCurrentUser: user => ({
 		type: constants.SET_CURRENT_USER,
 		payload: user
@@ -37,6 +51,17 @@ const actions = {
 	}),
 	loginFacebookError: error => ({
 		type: constants.LOGIN_FACEBOOK_FAILURE,
+		payload: error
+	}),
+	getUsersRequest: () => ({
+		type: constants.GET_USERS_REQUEST
+	}),
+	getUsersSuccess: response => ({
+		type: constants.GET_USERS_SUCCESS,
+		payload: response
+	}),
+	getUsersError: error => ({
+		type: constants.GET_USERS_FAILURE,
 		payload: error
 	})
 }

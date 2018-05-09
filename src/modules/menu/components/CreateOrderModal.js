@@ -4,7 +4,8 @@ import {
 	Text,
 	View,
 	TextInput,
-	TouchableOpacity
+	TouchableOpacity,
+	Picker
 } from 'react-native'
 import Modal from 'react-native-modal'
 import colors from 'src/constants/colors'
@@ -12,81 +13,93 @@ import { connect } from 'react-redux'
 import ModalActions from 'src/redux/actions/modal'
 import RestaurantActions from 'src/redux/actions/restaurant'
 
-class CreateMenuModal extends Component {
+class CreateOrderModal extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			menu: '',
-			price: ''
+			quantity: '1',
+			note: '',
+			user: ''
 		}
 	}
     
 	validate() {
-		if (this.state.menu !== '' && this.state.price !== '') {
-			this.props.addMenu(this.props.currentRestaurant.id, this.state.menu, this.state.price)
+		if (this.state.user !== '' && this.state.quantity !== '') {
+			// this.props.addMenu(this.props.currentRestaurant.id, this.state.menu, this.state.price)
 		}
 	}
 
 	render () {
 		return (
 			<Modal 
-				isVisible={this.props.showCreateMenuModal}
+				isVisible={this.props.showCreateOrderModal}
 				backdropColor={colors.gray}
 				backdropOpacity={0.5}
 				backdropTransitionInTiming={100}
 				backdropTransitionOutTiming={100}
 				onBackdropPress = {() => {
-					this.props.hideCreateMenuModal()
+					this.props.hideCreateOrderModal()
 				}}
 				onBackButtonPress = {() => {
-					this.props.hideCreateMenuModal()
+					this.props.hideCreateOrderModal()
 				}}
 			>
 				<View style={styles.container}>
 					<View style={styles.header}>
-						<Text style={{ color: colors.white, fontSize: 18, fontWeight: 'bold' }}>Create Menu</Text>
+						<Text style={{ color: colors.white, fontSize: 18, fontWeight: 'bold' }}>Create Order</Text>
 					</View>
 				</View>
 				<View style={styles.body}>
-					<View style={{ marginTop: 50, paddingLeft: 20, paddingRight: 20, flexDirection: 'row' }}>
-						<Text style={{ marginRight: 20, fontSize: 18, fontWeight: 'bold', marginTop: 2 }}>Menu</Text>
+					<View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20, paddingLeft: 20, paddingRight: 20 }}>
+						<Picker
+							selectedValue={this.state.user}
+							style={{ flex: 1, height: 50, width: 100 }}
+							onValueChange={(itemValue, itemIndex) => this.setState({ user: itemValue })}>
+							{ this.props.users.map((user, index) => (
+								<Picker.Item key={user.uid} label={user.displayName} value={user.uid}/>
+							))}
+						</Picker>
+					</View>
+					<View style={{ marginTop: 20, paddingLeft: 20, paddingRight: 20, flexDirection: 'row' }}>
+						<Text style={{ marginRight: 20, fontSize: 16, marginTop: 2, color: colors.black }}>Quantity</Text>
+						<View style={{ width: 60, marginRight: 20 }}>
+							<TextInput
+								style={{
+									height: 40, 
+									borderColor: 'gray', 
+									borderWidth: 1,
+									paddingLeft: 10,
+									paddingRight: 10
+								}}
+								onChangeText={(quantity) => this.setState({quantity})}
+								value={this.state.quantity}
+								underlineColorAndroid = {colors.transparent}
+								keyboardType='numeric'
+							/>
+						</View>
+						<Text style={{ fontSize: 16, marginTop: 2, color: colors.black }}>order</Text>
+					</View>
+					<View style={{ marginBottom: 30, marginTop: 30, paddingLeft: 20, paddingRight: 20, flexDirection: 'row' }}>
+						<Text style={{ marginRight: 20, fontSize: 16, marginTop: 2, color: colors.black }}>Note</Text>
 						<View style={{ flex: 1 }}>
 							<TextInput
 								style={{
-									height: 40, 
 									borderColor: 'gray', 
 									borderWidth: 1,
 									paddingLeft: 10,
 									paddingRight: 10
 								}}
-								onChangeText={(menu) => this.setState({menu})}
-								value={this.state.menu}
+								multiline
+								maxHeight={120}
+								onChangeText={(note) => this.setState({note})}
+								value={this.state.note}
 								underlineColorAndroid = {colors.transparent}
 							/>
 						</View>
-					</View>
-					<View style={{ marginBottom: 60, marginTop: 50, paddingLeft: 20, paddingRight: 20, flexDirection: 'row' }}>
-						<Text style={{ marginRight: 20, fontSize: 18, fontWeight: 'bold', marginTop: 2 }}>Price</Text>
-						<View style={{ width: 100, marginRight: 20 }}>
-							<TextInput
-								style={{
-									height: 40, 
-									borderColor: 'gray', 
-									borderWidth: 1,
-									paddingLeft: 10,
-									paddingRight: 10
-								}}
-								onChangeText={(price) => this.setState({price})}
-								value={this.state.price}
-								keyboardType='numeric'
-								underlineColorAndroid = {colors.transparent}
-							/>
-						</View>
-						<Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 2 }}>baht</Text>
 					</View>
 					<TouchableOpacity
 						onPress={ () => {
-							this.validate()
+							// this.validate()
 						}}
 						style={styles.submitBtn}
 					>
@@ -134,18 +147,19 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-	showCreateMenuModal: state.modalReducer.showCreateMenuModal,
+	showCreateOrderModal: state.modalReducer.showCreateOrderModal,
 	currentRestaurant: state.restaurantReducer.currentRestaurant,
-	currentUser: state.userReducer.currentUser
+	currentUser: state.userReducer.currentUser,
+	users: state.userReducer.users
 })
 
 const mapDispatchToProps = dispatch => ({
-	hideCreateMenuModal: () => {
-		dispatch(ModalActions.hideCreateMenuModal())
+	hideCreateOrderModal: () => {
+		dispatch(ModalActions.hideCreateOrderModal())
 	},
 	addMenu: (restaurant_id, menu_name, price) => {
 		dispatch(RestaurantActions.addMenu(restaurant_id, menu_name, price))
 	}
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateMenuModal)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateOrderModal)

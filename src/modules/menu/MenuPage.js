@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import ModalActions from 'src/redux/actions/modal'
 import images from 'src/constants/images'
 import RestaurantActions from 'src/redux/actions/restaurant'
-import CreateMenuModal from 'src/modules/restaurant/components/CreateMenuModal'
+import CreateOrderModal from 'src/modules/menu/components/CreateOrderModal'
 
 export class MenuPage extends Component {
 
@@ -27,7 +27,7 @@ export class MenuPage extends Component {
 	render() {
 		const actions = [{
 			text: 'Add Order',
-			icon: images.menu,
+			icon: images.order,
 			name: 'add_order',
 			position: 1
 		}]
@@ -37,7 +37,7 @@ export class MenuPage extends Component {
 					<Navbar title={this.props.currentMenu.menu_name} previousPage='restaurant'/>
 				</View>
 				<View style={{ marginTop: 20, marginLeft: 40 }}>
-					<Text style={{ color: colors.white, fontWeight: 'bold' }}>Order</Text>
+					<Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 18 }}>Order</Text>
 				</View>
 				
 				<FloatingAction
@@ -45,13 +45,13 @@ export class MenuPage extends Component {
 					onPressItem={
 						(name) => {
 							if (name === 'add_order') {
-								// this.props.showCreateMenuModal()
+								this.props.showCreateOrderModal()
 							}
 						}
 					}
 					color={colors.green}
 				/>
-				<CreateMenuModal/>
+				<CreateOrderModal/>
 			</View>
 		)
 	}
@@ -74,8 +74,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-	showCreateMenuModal: () => {
-		dispatch(ModalActions.showCreateMenuModal())
+	showCreateOrderModal: () => {
+		dispatch(ModalActions.showCreateOrderModal())
 	},
 	getMenus: (restaurant_id) => {
 		dispatch(RestaurantActions.getMenus(restaurant_id))

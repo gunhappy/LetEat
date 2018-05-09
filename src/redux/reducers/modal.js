@@ -2,7 +2,8 @@ import constants from 'src/redux/constants'
 
 const initialState = {
 	showCreateRestaurantModal: false,
-	showCreateMenuModal: false
+	showCreateMenuModal: false,
+	showCreateOrderModal: false
 }
 
 export default (state = initialState, action) => {
@@ -30,6 +31,18 @@ export default (state = initialState, action) => {
 		return {
 			...state,
 			showCreateMenuModal: false
+		}
+
+	case constants.SHOW_CREATE_ORDER_MODAL:
+		return {
+			...state,
+			showCreateOrderModal: true
+		}
+        
+	case constants.HIDE_CREATE_ORDER_MODAL:
+		return {
+			...state,
+			showCreateOrderModal: false
 		}
 	
 	default:

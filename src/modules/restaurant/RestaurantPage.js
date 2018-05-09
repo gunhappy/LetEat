@@ -38,7 +38,7 @@ export class RestaurantPage extends Component {
 					<Navbar title={this.props.currentRestaurant.restaurant_name} previousPage='home'/>
 				</View>
 				<View style={{ marginTop: 20, marginLeft: 40 }}>
-					<Text style={{ color: colors.white, fontWeight: 'bold' }}>Menu</Text>
+					<Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 18 }}>Menu</Text>
 				</View>
 				<ScrollView style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
 					{ this.props.menus ?
