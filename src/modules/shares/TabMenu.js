@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import HomePage from 'src/modules/home/HomePage'
+import RestaurantPage from 'src/modules/restaurant/RestaurantPage'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import TabNavigator from 'react-native-tab-navigator'
@@ -10,6 +11,7 @@ import { connect } from 'react-redux'
 import UserActions from 'src/redux/actions/user'
 import { Actions } from 'react-native-router-flux'
 import { auth } from 'src/constants/firebase'
+import MenuPage from 'src/modules/menu/MenuPage'
 
 const deviceWidth = Dimensions.get('window').width
 const basePx = 375
@@ -30,6 +32,11 @@ export class TabMenu extends Component {
 	componentDidMount() {
 		console.disableYellowBox = true
 		this.setCurrentUser()
+		this.fetchData()
+	}
+
+	fetchData() {
+		this.props.getUsers()
 	}
 
 	setCurrentUser() {
@@ -64,13 +71,21 @@ export class TabMenu extends Component {
 						<IconMaterialCommunity name="food" size={this.px2dp(26)} color={colors.orange} />
 					)}
 				>
-					<HomePage/>
+					{this.props.currentPage === 'restaurant'?
+						<RestaurantPage/>:
+						this.props.currentPage === 'menu' ?
+							<MenuPage/>:
+							<HomePage/>
+					}
 				</TabNavigator.Item>
 				<TabNavigator.Item
 					selected={this.state.selectedTab === 'user'}
 					selectedTitleStyle={{ color: colors.blue }}
 					onPress={() => {
 						this.setState({ selectedTab: 'user' })
+						if (this.props.currentUser) {
+							this.props.getUserSummary(this.props.currentUser.uid)
+						}
 					}}
 					renderIcon={() => (
 						<IconFontAwesome name="user" size={this.px2dp(22)} color={colors.gray} />
@@ -95,10 +110,21 @@ const styles = StyleSheet.create({
 	}
 })
 
+const mapStateToProps = state => ({
+	currentPage: state.pageReducer.currentPage,
+	currentUser: state.userReducer.currentUser
+})
+
 const mapDispatchToProps = dispatch => ({
 	setCurrentUser: user => {
 		dispatch(UserActions.setCurrentUser(user))
+	},
+	getUsers: () => {
+		dispatch(UserActions.getUsers())
+	},
+	getUserSummary: (user_id) => {
+		dispatch(UserActions.getUserSummary(user_id))
 	}
 })
 
-export default connect(null, mapDispatchToProps)(TabMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(TabMenu)

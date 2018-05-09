@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Platform, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, Text, Platform, ActivityIndicator, TouchableOpacity, ScrollView } from 'react-native'
 import React, { Component } from 'react'
 import colors from 'src/constants/colors'
 import Navbar from 'src/modules/shares/Navbar'
@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import ModalActions from 'src/redux/actions/modal'
 import images from 'src/constants/images'
 import RestaurantActions from 'src/redux/actions/restaurant'
+import PageActions from 'src/redux/actions/page'
 
 export class HomePage extends Component {
 
@@ -37,26 +38,33 @@ export class HomePage extends Component {
 					<Navbar title='LetEat'/>
 				</View>
 				<View style={{ marginTop: 20, marginLeft: 40 }}>
-					<Text style={{ color: colors.white, fontWeight: 'bold' }}>Restaurant</Text>
+					<Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 18 }}>Restaurant</Text>
 				</View>
-				<View style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
+				<ScrollView style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
 					{ this.props.restaurants ?
 						this.props.restaurants.map((restaurant, index) => (
-							<View style={{ marginBottom: 20 }} key={index}>
+							<TouchableOpacity 
+								style={{ marginBottom: 20 }} 
+								key={index}
+								onPress={() => {
+									this.props.setCurrentRestaurant(restaurant)
+									this.props.setCurrentPage('restaurant')
+								}}
+							>
 								<RestaurantCard 
 									restaurantName={restaurant.restaurant_name} 
-									numberOfOrder={restaurant.orders?restaurant.orders.length:0} 
+									numberOfMenu={restaurant.menus?Object.keys(restaurant.menus).length:0} 
 									creator={restaurant.creator}
-									key={restaurant.key}
+									key={restaurant.id}
 								/>
-							</View>
+							</TouchableOpacity>
 						))
 						: this.props.loading ?
 							<View>
 								<ActivityIndicator size="large" />
 							</View> : <View/>
 					}
-				</View>
+				</ScrollView>
 				<FloatingAction
 					actions={actions}
 					onPressItem={
@@ -96,6 +104,12 @@ const mapDispatchToProps = dispatch => ({
 	},
 	getRestaurants: () => {
 		dispatch(RestaurantActions.getRestaurants())
+	},
+	setCurrentRestaurant: (restaurant) => {
+		dispatch(RestaurantActions.setCurrentRestaurant(restaurant))
+	},
+	setCurrentPage: (page) => {
+		dispatch(PageActions.setCurrentPage(page))
 	}
 })
 

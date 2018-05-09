@@ -7,5 +7,6 @@ export default {
 	black: '#000',
 	card: '#607D8B',
 	green: '#43B05C',
+	list: '#607D8B',
 	transparent: 'transparent'
 }

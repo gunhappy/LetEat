@@ -43,11 +43,12 @@ class CreateRestaurantModal extends Component {
 			>
 				<View style={styles.container}>
 					<View style={styles.header}>
-						<Text style={{ color: colors.white, fontSize: 18 }}>Create Restaurant</Text>
+						<Text style={{ color: colors.white, fontSize: 18, fontWeight: 'bold' }}>Create Restaurant</Text>
 					</View>
 				</View>
 				<View style={styles.body}>
-					<View style={{ marginBottom: 60, marginTop: 50, paddingLeft: 20, paddingRight: 20 }}>
+					<View style={{ marginBottom: 60, marginTop: 30, paddingLeft: 20, paddingRight: 20 }}>
+						<Text style={{ textAlign: 'center', marginBottom: 20, fontWeight: 'bold', fontSize: 15 }}>Restaurant Name</Text>
 						<TextInput
 							style={{
 								height: 40, 
@@ -90,7 +91,6 @@ const styles = StyleSheet.create({
 		paddingBottom: 20
 	},
 	body: {
-		height: 200,
 		backgroundColor: colors.white
 	},
 	submitBtn: {
@@ -99,13 +99,14 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		marginLeft: 20,
-		marginRight: 20
+		marginRight: 20,
+		marginBottom: 20
 	},
 	submitText: {
 		color: colors.white, 
 		fontWeight: 'bold',
-		marginTop: 2,
-		marginBottom: 2,
+		marginTop: 10,
+		marginBottom: 10,
 		fontSize: 18 
 	}
 })
