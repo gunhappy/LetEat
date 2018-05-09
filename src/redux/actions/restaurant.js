@@ -33,9 +33,9 @@ const RestaurantActions = {
 		}
 
 	},
-	setCurrentUser: user => ({
-		type: constants.SET_CURRENT_USER,
-		payload: user
+	setCurrentRestaurant: restaurant => ({
+		type: constants.SET_CURRENT_RESTAURANT,
+		payload: restaurant
 	})
 }
 

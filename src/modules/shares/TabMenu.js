@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import HomePage from 'src/modules/home/HomePage'
+import RestaurantPage from 'src/modules/restaurant/RestaurantPage'
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome'
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons'
 import TabNavigator from 'react-native-tab-navigator'
@@ -64,7 +65,9 @@ export class TabMenu extends Component {
 						<IconMaterialCommunity name="food" size={this.px2dp(26)} color={colors.orange} />
 					)}
 				>
-					<HomePage/>
+					{this.props.currentPage === 'restaurant'?
+						<RestaurantPage/>:<HomePage/>
+					}
 				</TabNavigator.Item>
 				<TabNavigator.Item
 					selected={this.state.selectedTab === 'user'}
@@ -95,10 +98,14 @@ const styles = StyleSheet.create({
 	}
 })
 
+const mapStateToProps = state => ({
+	currentPage: state.pageReducer.currentPage
+})
+
 const mapDispatchToProps = dispatch => ({
 	setCurrentUser: user => {
 		dispatch(UserActions.setCurrentUser(user))
 	}
 })
 
-export default connect(null, mapDispatchToProps)(TabMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(TabMenu)

@@ -12,54 +12,76 @@ import { connect } from 'react-redux'
 import ModalActions from 'src/redux/actions/modal'
 import RestaurantActions from 'src/redux/actions/restaurant'
 
-class CreateRestaurantModal extends Component {
+class CreateMenuModal extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			text: ''
+			menu: '',
+			price: ''
 		}
 	}
     
 	validate() {
-		if (this.state.text !== '') {
-			this.props.addRestaurant(this.state.text, this.props.currentUser.uid, this.props.currentUser.displayName)
+		if (this.state.menu !== '' && this.state.price !== '') {
+			// this.props.addRestaurant(this.state.menu, this.props.currentUser.uid, this.props.currentUser.displayName)
 		}
 	}
 
 	render () {
 		return (
 			<Modal 
-				isVisible={this.props.showCreateRestaurantModal}
+				isVisible={this.props.showCreateMenuModal}
 				backdropColor={colors.gray}
 				backdropOpacity={0.5}
 				backdropTransitionInTiming={100}
 				backdropTransitionOutTiming={100}
 				onBackdropPress = {() => {
-					this.props.hideCreateRestaurantModal()
+					this.props.hideCreateMenuModal()
 				}}
 				onBackButtonPress = {() => {
-					this.props.hideCreateRestaurantModal()
+					this.props.hideCreateMenuModal()
 				}}
 			>
 				<View style={styles.container}>
 					<View style={styles.header}>
-						<Text style={{ color: colors.white, fontSize: 18 }}>Create Restaurant</Text>
+						<Text style={{ color: colors.white, fontSize: 18 }}>Create Menu</Text>
 					</View>
 				</View>
 				<View style={styles.body}>
-					<View style={{ marginBottom: 60, marginTop: 50, paddingLeft: 20, paddingRight: 20 }}>
-						<TextInput
-							style={{
-								height: 40, 
-								borderColor: 'gray', 
-								borderWidth: 1,
-								paddingLeft: 10,
-								paddingRight: 10
-							}}
-							onChangeText={(text) => this.setState({text})}
-							value={this.state.text}
-							underlineColorAndroid = {colors.transparent}
-						/>
+					<View style={{ marginBottom: 60, marginTop: 50, paddingLeft: 20, paddingRight: 20, flexDirection: 'row' }}>
+						<Text style={{ marginRight: 20, fontSize: 18, fontWeight: 'bold', marginTop: 2 }}>Menu</Text>
+						<View style={{ flex: 1 }}>
+							<TextInput
+								style={{
+									height: 40, 
+									borderColor: 'gray', 
+									borderWidth: 1,
+									paddingLeft: 10,
+									paddingRight: 10
+								}}
+								onChangeText={(menu) => this.setState({menu})}
+								value={this.state.menu}
+								underlineColorAndroid = {colors.transparent}
+							/>
+						</View>
+					</View>
+					<View style={{ marginBottom: 60, marginTop: 50, paddingLeft: 20, paddingRight: 20, flexDirection: 'row' }}>
+						<Text style={{ marginRight: 20, fontSize: 18, fontWeight: 'bold', marginTop: 2 }}>Menu</Text>
+						<View style={{ width: 100, marginRight: 20 }}>
+							<TextInput
+								style={{
+									height: 40, 
+									borderColor: 'gray', 
+									borderWidth: 1,
+									paddingLeft: 10,
+									paddingRight: 10
+								}}
+								onChangeText={(price) => this.setState({price})}
+								value={this.state.price}
+								underlineColorAndroid = {colors.transparent}
+							/>
+						</View>
+						<Text style={{ fontSize: 18, fontWeight: 'bold', marginTop: 2 }}>baht</Text>
 					</View>
 					<TouchableOpacity
 						onPress={ () => {
@@ -111,17 +133,17 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-	showCreateRestaurantModal: state.modalReducer.showCreateRestaurantModal,
+	showCreateMenuModal: state.modalReducer.showCreateMenuModal,
 	currentUser: state.userReducer.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({
-	hideCreateRestaurantModal: () => {
-		dispatch(ModalActions.hideCreateRestaurantModal())
+	hideCreateMenuModal: () => {
+		dispatch(ModalActions.hideCreateMenuModal())
 	},
 	addRestaurant: (name, uid, username) => {
 		dispatch(RestaurantActions.addRestaurant(name, uid, username))
 	}
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateRestaurantModal)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateMenuModal)

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import colors from 'src/constants/colors'
 import Navbar from 'src/modules/shares/Navbar'
 import { connect } from 'react-redux'
+import { APP_FULL_WIDTH } from 'src/constants'
 
 export class UserPage extends Component {
 
@@ -23,7 +24,10 @@ export class UserPage extends Component {
 				</View>
 				<View style={{ flexDirection: 'row', marginTop: 20, alignItems: 'center' }}>
 					<View style={{ marginLeft: 20, marginRight: 20 }}>
-						<Image source={{ uri: `${this.props.currentUser.photoURL}/picture?height=300` }} style={{ width: 100, height: 100, borderRadius: 90 }} resizeMode='cover' />
+						<Image 
+							source={{ uri: `${this.props.currentUser.photoURL}/picture?height=300` }} 
+							style={{ width: APP_FULL_WIDTH*0.2, height: APP_FULL_WIDTH*0.2, borderRadius: 90 }} resizeMode='cover' 
+						/>
 					</View>
 					<Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 18 }}>{this.props.currentUser.displayName}</Text>
 				</View>

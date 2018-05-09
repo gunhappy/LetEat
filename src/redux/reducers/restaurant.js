@@ -3,7 +3,8 @@ import constants from 'src/redux/constants'
 const initialState = {
 	restaurants: null,
 	loading: false,
-	error: null
+	error: null,
+	currentRestaurant: null
 }
 
 export default (state = initialState, action) => {
@@ -27,6 +28,12 @@ export default (state = initialState, action) => {
 			error: action.payload
 		}
 
+	case constants.SET_CURRENT_RESTAURANT:
+		return {
+			...state,
+			currentRestaurant: action.payload
+		}
+        
 	default:
 		return state
 	}

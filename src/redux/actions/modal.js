@@ -6,6 +6,12 @@ const ModalActions = {
 	}),
 	hideCreateRestaurantModal: () => ({
 		type: constants.HIDE_CREATE_RESTAURANT_MODAL
+	}),
+	showCreateMenuModal: () => ({
+		type: constants.SHOW_CREATE_MENU_MODAL
+	}),
+	hideCreateMenuModal: () => ({
+		type: constants.HIDE_CREATE_MENU_MODAL
 	})
 }
 
