@@ -1,4 +1,4 @@
-import { StyleSheet, View, Platform, Image, TouchableOpacity, AsyncStorage } from 'react-native'
+import { StyleSheet, View, Platform, Image, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import colors from 'src/constants/colors'
 import Navbar from 'src/modules/shares/Navbar'
@@ -8,24 +8,11 @@ import { APP_FULL_WIDTH } from 'src/constants'
 import { AccessToken, LoginManager } from 'react-native-fbsdk'
 import UserActions from 'src/redux/actions/user'
 import { connect } from 'react-redux'
-// import { Actions } from 'react-native-router-flux'
 
 export class LoginPage extends Component {
 
 	constructor(props) {
 		super(props)
-	}
-
-	componentDidMount() {
-		// this.checkTokenFromStorage()
-	}
-
-	async checkTokenFromStorage() {
-		const token = await AsyncStorage.getItem('fb_token')
-		console.log(token, 'token from storage')
-		if (token !== null) {
-			this.props.loginWithFacebook(token)
-		}
 	}
 
 	_fbAuth() {
