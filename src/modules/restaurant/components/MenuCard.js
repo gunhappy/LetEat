@@ -2,18 +2,18 @@ import { StyleSheet, View, Text } from 'react-native'
 import React, { Component } from 'react'
 import colors from 'src/constants/colors'
 
-export class RestaurantCard extends Component {
+export class MenuCard extends Component {
 
 	constructor(props) {
 		super(props)
 	}
-	
+
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text style={{ color: colors.white, fontWeight: 'bold', marginTop: 20 }}>{this.props.restaurantName}</Text>
-				<Text style={{ color: colors.white, marginTop: 10, marginBottom: 20 }}>{this.props.numberOfMenu} {this.props.numberOfMenu > 1? 'menus': 'menu'}</Text>
-				<Text style={{ color: colors.white, marginBottom: 10 }}>Created by {this.props.creator}</Text>
+				<Text style={{ color: colors.white, fontWeight: 'bold', marginTop: 20 }}>{this.props.menuName}</Text>
+				<Text style={{ color: colors.white, marginTop: 10, marginBottom: 20 }}>{this.props.price} baht</Text>
+				<Text style={{ color: colors.white, marginBottom: 10 }}>{this.props.numberOfOrder} orders</Text>
 			</View>
 		)
 	}
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default RestaurantCard
+export default MenuCard

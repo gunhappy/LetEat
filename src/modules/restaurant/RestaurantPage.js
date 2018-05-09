@@ -1,14 +1,15 @@
-import { StyleSheet, View, Text, Platform, ActivityIndicator } from 'react-native'
+import { StyleSheet, View, Text, Platform, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import colors from 'src/constants/colors'
 import Navbar from 'src/modules/shares/Navbar'
-import RestaurantCard from 'src/modules/home/components/RestaurantCard'
+import MenuCard from 'src/modules/restaurant/components/MenuCard'
 import { FloatingAction } from 'react-native-floating-action'
 import { connect } from 'react-redux'
 import ModalActions from 'src/redux/actions/modal'
 import images from 'src/constants/images'
 import RestaurantActions from 'src/redux/actions/restaurant'
-import CreateMenuModal from 'src/modules/menu/components/CreateMenuModal'
+import CreateMenuModal from 'src/modules/restaurant/components/CreateMenuModal'
+import PageActions from 'src/redux/actions/page'
 
 export class RestaurantPage extends Component {
 
@@ -17,11 +18,11 @@ export class RestaurantPage extends Component {
 	}
 
 	componentDidMount() {
-		// this.fetchData()
+		this.fetchData()
 	}
 
 	fetchData() {
-		this.props.getRestaurants()
+		this.props.getMenus(this.props.currentRestaurant.id)
 	}
 
 	render() {
@@ -39,6 +40,31 @@ export class RestaurantPage extends Component {
 				<View style={{ marginTop: 20, marginLeft: 40 }}>
 					<Text style={{ color: colors.white, fontWeight: 'bold' }}>Menu</Text>
 				</View>
+				<ScrollView style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
+					{ this.props.menus ?
+						this.props.menus.map((menu, index) => (
+							<TouchableOpacity 
+								style={{ marginBottom: 20 }} 
+								key={index}
+								onPress={() => {
+									this.props.setCurrentMenu(menu)
+									this.props.setCurrentPage('menu')
+								}}
+							>
+								<MenuCard 
+									menuName={menu.menu_name} 
+									numberOfOrder={menu.orders?menu.orders.length:0} 
+									price={menu.price}
+									key={menu.id}
+								/>
+							</TouchableOpacity>
+						))
+						: this.props.loading ?
+							<View>
+								<ActivityIndicator size="large" />
+							</View> : <View/>
+					}
+				</ScrollView>
 				<FloatingAction
 					actions={actions}
 					onPressItem={
@@ -68,15 +94,23 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-	currentRestaurant: state.restaurantReducer.currentRestaurant
+	currentRestaurant: state.restaurantReducer.currentRestaurant,
+	menus: state.restaurantReducer.menus,
+	loading: state.restaurantReducer.loading
 })
 
 const mapDispatchToProps = dispatch => ({
 	showCreateMenuModal: () => {
 		dispatch(ModalActions.showCreateMenuModal())
 	},
-	getRestaurants: () => {
-		dispatch(RestaurantActions.getRestaurants())
+	getMenus: (restaurant_id) => {
+		dispatch(RestaurantActions.getMenus(restaurant_id))
+	},
+	setCurrentMenu: (menu) => {
+		dispatch(RestaurantActions.setCurrentMenu(menu))
+	},
+	setCurrentPage: (page) => {
+		dispatch(PageActions.setCurrentPage(page))
 	}
 })
 

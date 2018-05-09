@@ -23,7 +23,7 @@ class CreateMenuModal extends Component {
     
 	validate() {
 		if (this.state.menu !== '' && this.state.price !== '') {
-			// this.props.addRestaurant(this.state.menu, this.props.currentUser.uid, this.props.currentUser.displayName)
+			this.props.addMenu(this.props.currentRestaurant.id, this.state.menu, this.state.price)
 		}
 	}
 
@@ -48,7 +48,7 @@ class CreateMenuModal extends Component {
 					</View>
 				</View>
 				<View style={styles.body}>
-					<View style={{ marginBottom: 60, marginTop: 50, paddingLeft: 20, paddingRight: 20, flexDirection: 'row' }}>
+					<View style={{ marginTop: 50, paddingLeft: 20, paddingRight: 20, flexDirection: 'row' }}>
 						<Text style={{ marginRight: 20, fontSize: 18, fontWeight: 'bold', marginTop: 2 }}>Menu</Text>
 						<View style={{ flex: 1 }}>
 							<TextInput
@@ -66,7 +66,7 @@ class CreateMenuModal extends Component {
 						</View>
 					</View>
 					<View style={{ marginBottom: 60, marginTop: 50, paddingLeft: 20, paddingRight: 20, flexDirection: 'row' }}>
-						<Text style={{ marginRight: 20, fontSize: 18, fontWeight: 'bold', marginTop: 2 }}>Menu</Text>
+						<Text style={{ marginRight: 20, fontSize: 18, fontWeight: 'bold', marginTop: 2 }}>Price</Text>
 						<View style={{ width: 100, marginRight: 20 }}>
 							<TextInput
 								style={{
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
 	showCreateMenuModal: state.modalReducer.showCreateMenuModal,
+	currentRestaurant: state.restaurantReducer.currentRestaurant,
 	currentUser: state.userReducer.currentUser
 })
 
@@ -141,8 +142,8 @@ const mapDispatchToProps = dispatch => ({
 	hideCreateMenuModal: () => {
 		dispatch(ModalActions.hideCreateMenuModal())
 	},
-	addRestaurant: (name, uid, username) => {
-		dispatch(RestaurantActions.addRestaurant(name, uid, username))
+	addMenu: (restaurant_id, menu_name, price) => {
+		dispatch(RestaurantActions.addMenu(restaurant_id, menu_name, price))
 	}
 })
 

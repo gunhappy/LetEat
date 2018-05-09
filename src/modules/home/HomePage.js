@@ -32,6 +32,9 @@ export class HomePage extends Component {
 			name: 'add_restaurant',
 			position: 1
 		}]
+		if (this.props.restaurants) {
+			console.log(Object.keys(this.props.restaurants[0].menus).length, 'menusasdafs')
+		}
 		return (
 			<View style={styles.container}>
 				<View style={styles.header}>
@@ -53,9 +56,9 @@ export class HomePage extends Component {
 							>
 								<RestaurantCard 
 									restaurantName={restaurant.restaurant_name} 
-									numberOfOrder={restaurant.orders?restaurant.orders.length:0} 
+									numberOfMenu={restaurant.menus?Object.keys(restaurant.menus).length:0} 
 									creator={restaurant.creator}
-									key={restaurant.key}
+									key={restaurant.id}
 								/>
 							</TouchableOpacity>
 						))

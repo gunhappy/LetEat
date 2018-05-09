@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import UserActions from 'src/redux/actions/user'
 import { Actions } from 'react-native-router-flux'
 import { auth } from 'src/constants/firebase'
+import MenuPage from 'src/modules/menu/MenuPage'
 
 const deviceWidth = Dimensions.get('window').width
 const basePx = 375
@@ -66,7 +67,10 @@ export class TabMenu extends Component {
 					)}
 				>
 					{this.props.currentPage === 'restaurant'?
-						<RestaurantPage/>:<HomePage/>
+						<RestaurantPage/>:
+						this.props.currentPage === 'menu' ?
+							<MenuPage/>:
+							<HomePage/>
 					}
 				</TabNavigator.Item>
 				<TabNavigator.Item
