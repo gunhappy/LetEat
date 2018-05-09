@@ -48,6 +48,21 @@ const RestaurantActions = {
 			dispatch(ModalActions.hideCreateMenuModal())
 		}
 	},
+	addOrder: (restaurant_id, menu_id, uid, quantity, note) => async dispatch => {
+		try {
+			const orderRef = db.ref(`/restaurants/${restaurant_id}/menus/${menu_id}`).child('orders')
+			await orderRef.push().set({
+				uid,
+				quantity,
+				note
+			})
+			// dispatch(RestaurantActions.getMenus(restaurant_id))
+			dispatch(ModalActions.hideCreateOrderModal())
+		} catch (error) {
+			console.log('add menu error')
+			dispatch(ModalActions.hideCreateOrderModal())
+		}
+	},
 	getMenus: (restaurant_id) => async dispatch => {
 		dispatch(actions.getMenusRequest())
 		try {

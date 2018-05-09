@@ -13,7 +13,7 @@ export class MenuCard extends Component {
 			<View style={styles.container}>
 				<Text style={{ color: colors.white, fontWeight: 'bold', marginTop: 20 }}>{this.props.menuName}</Text>
 				<Text style={{ color: colors.white, marginTop: 10, marginBottom: 20 }}>{this.props.price} baht</Text>
-				<Text style={{ color: colors.white, marginBottom: 10 }}>{this.props.numberOfOrder} orders</Text>
+				<Text style={{ color: colors.white, marginBottom: 10 }}>{this.props.numberOfOrder} {this.props.numberOfOrder > 1? 'orders': 'order'}</Text>
 			</View>
 		)
 	}

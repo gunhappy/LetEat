@@ -25,7 +25,7 @@ class CreateOrderModal extends Component {
     
 	validate() {
 		if (this.state.user !== '' && this.state.quantity !== '') {
-			// this.props.addMenu(this.props.currentRestaurant.id, this.state.menu, this.state.price)
+			this.props.addOrder(this.props.currentRestaurant.id, this.props.currentMenu.id, this.state.user, this.state.quantity, this.state.note)
 		}
 	}
 
@@ -50,7 +50,10 @@ class CreateOrderModal extends Component {
 					</View>
 				</View>
 				<View style={styles.body}>
-					<View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20, paddingLeft: 20, paddingRight: 20 }}>
+					<View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 5, marginTop: 20 }}>
+						<Text style={{ textAlign: 'center', fontSize: 15, color: colors.black }}>ผู้สั่ง</Text>
+					</View>
+					<View style={{ flexDirection: 'row', justifyContent: 'center', paddingLeft: 20, paddingRight: 20 }}>
 						<Picker
 							selectedValue={this.state.user}
 							style={{ flex: 1, height: 50, width: 100 }}
@@ -99,7 +102,7 @@ class CreateOrderModal extends Component {
 					</View>
 					<TouchableOpacity
 						onPress={ () => {
-							// this.validate()
+							this.validate()
 						}}
 						style={styles.submitBtn}
 					>
@@ -149,6 +152,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
 	showCreateOrderModal: state.modalReducer.showCreateOrderModal,
 	currentRestaurant: state.restaurantReducer.currentRestaurant,
+	currentMenu: state.restaurantReducer.currentMenu,
 	currentUser: state.userReducer.currentUser,
 	users: state.userReducer.users
 })
@@ -157,8 +161,8 @@ const mapDispatchToProps = dispatch => ({
 	hideCreateOrderModal: () => {
 		dispatch(ModalActions.hideCreateOrderModal())
 	},
-	addMenu: (restaurant_id, menu_name, price) => {
-		dispatch(RestaurantActions.addMenu(restaurant_id, menu_name, price))
+	addOrder: (restaurant_id, menu_id, uid, quantity, note) => {
+		dispatch(RestaurantActions.addOrder(restaurant_id, menu_id, uid, quantity, note))
 	}
 })
 

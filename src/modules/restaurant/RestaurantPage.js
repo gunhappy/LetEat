@@ -53,7 +53,7 @@ export class RestaurantPage extends Component {
 							>
 								<MenuCard 
 									menuName={menu.menu_name} 
-									numberOfOrder={menu.orders?menu.orders.length:0} 
+									numberOfOrder={menu.orders?Object.keys(menu.orders).length:0} 
 									price={menu.price}
 									key={menu.id}
 								/>
