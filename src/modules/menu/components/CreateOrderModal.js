@@ -51,7 +51,7 @@ class CreateOrderModal extends Component {
 				</View>
 				<View style={styles.body}>
 					<View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 5, marginTop: 20 }}>
-						<Text style={{ textAlign: 'center', fontSize: 15, color: colors.black }}>ผู้สั่ง</Text>
+						<Text style={{ textAlign: 'center', fontSize: 15, color: colors.black }}>สั่งให้</Text>
 					</View>
 					<View style={{ flexDirection: 'row', justifyContent: 'center', paddingLeft: 20, paddingRight: 20 }}>
 						<Picker

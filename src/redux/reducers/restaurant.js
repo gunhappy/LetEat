@@ -6,7 +6,8 @@ const initialState = {
 	error: null,
 	currentRestaurant: null,
 	menus: null,
-	currentMenu: null
+	currentMenu: null,
+	orders: null
 }
 
 export default (state = initialState, action) => {
@@ -47,6 +48,27 @@ export default (state = initialState, action) => {
 		}
         
 	case constants.GET_MENUS_FAILURE:
+		return {
+			...state,
+			error: action.payload,
+			loading: false
+		}
+
+	case constants.GET_ORDERS_REQUEST:
+		return {
+			...state,
+			orders: null,
+			loading: true
+		}
+        
+	case constants.GET_ORDERS_SUCCESS:
+		return {
+			...state,
+			orders: action.payload,
+			loading: false
+		}
+        
+	case constants.GET_ORDERS_FAILURE:
 		return {
 			...state,
 			error: action.payload,

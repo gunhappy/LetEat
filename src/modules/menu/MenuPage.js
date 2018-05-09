@@ -1,8 +1,8 @@
-import { StyleSheet, View, Text, Platform, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Platform, ActivityIndicator, ScrollView } from 'react-native'
 import React, { Component } from 'react'
 import colors from 'src/constants/colors'
 import Navbar from 'src/modules/shares/Navbar'
-import MenuCard from 'src/modules/restaurant/components/MenuCard'
+import OrderCard from 'src/modules/menu/components/OrderCard'
 import { FloatingAction } from 'react-native-floating-action'
 import { connect } from 'react-redux'
 import ModalActions from 'src/redux/actions/modal'
@@ -17,11 +17,11 @@ export class MenuPage extends Component {
 	}
 
 	componentDidMount() {
-		// this.fetchData()
+		this.fetchData()
 	}
 
 	fetchData() {
-		this.props.getMenus(this.props.currentRestaurant.id)
+		this.props.getOrders(this.props.currentRestaurant.id, this.props.currentMenu.id)
 	}
 
 	render() {
@@ -39,7 +39,27 @@ export class MenuPage extends Component {
 				<View style={{ marginTop: 20, marginLeft: 40 }}>
 					<Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 18 }}>Order</Text>
 				</View>
-				
+				<ScrollView style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
+					{ this.props.orders ?
+						this.props.orders.map((order, index) => (
+							<View 
+								style={{ marginBottom: 20 }} 
+								key={index}
+							>
+								<OrderCard 
+									userID={order.uid} 
+									numberOfOrder={order.quantity} 
+									note={order.note}
+									key={order.id}
+								/>
+							</View>
+						))
+						: this.props.loading ?
+							<View>
+								<ActivityIndicator size="large" />
+							</View> : <View/>
+					}
+				</ScrollView>
 				<FloatingAction
 					actions={actions}
 					onPressItem={
@@ -69,7 +89,9 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
+	currentRestaurant: state.restaurantReducer.currentRestaurant,
 	currentMenu: state.restaurantReducer.currentMenu,
+	orders: state.restaurantReducer.orders,
 	loading: state.restaurantReducer.loading
 })
 
@@ -77,8 +99,8 @@ const mapDispatchToProps = dispatch => ({
 	showCreateOrderModal: () => {
 		dispatch(ModalActions.showCreateOrderModal())
 	},
-	getMenus: (restaurant_id) => {
-		dispatch(RestaurantActions.getMenus(restaurant_id))
+	getOrders: (restaurant_id, menu_id) => {
+		dispatch(RestaurantActions.getOrders(restaurant_id, menu_id))
 	}
 })
 

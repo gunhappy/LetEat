@@ -24,6 +24,18 @@ export class RestaurantPage extends Component {
 	fetchData() {
 		this.props.getMenus(this.props.currentRestaurant.id)
 	}
+	
+	calculatePrice() {
+		var totalPrice = 0
+		this.props.menus.map((menu) => {
+			var numberOrder = 0
+			for (var key in menu.orders) {
+				numberOrder += Number(menu.orders[key].quantity)
+			}
+			totalPrice += (numberOrder * Number(menu.price))
+		})
+		return totalPrice
+	}
 
 	render() {
 		const actions = [{
@@ -37,8 +49,15 @@ export class RestaurantPage extends Component {
 				<View style={styles.header}>
 					<Navbar title={this.props.currentRestaurant.restaurant_name} previousPage='home'/>
 				</View>
-				<View style={{ marginTop: 20, marginLeft: 40 }}>
-					<Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 18 }}>Menu</Text>
+				<View style={{ flexDirection: 'row', marginTop: 20}}>
+					<View style={{ flex: 1 }}>
+						<Text style={{ marginLeft: 40, color: colors.white, fontWeight: 'bold', fontSize: 18 }}>Menu</Text>
+					</View>
+					<View style={{ alignContent: 'flex-end', flexDirection: 'row', marginRight: 40 }}>
+						<Text style={{ color: colors.white }}>Total</Text>
+						<Text style={{ color: colors.white, marginLeft: 5 }}>{this.props.menus?this.calculatePrice():0}</Text>
+						<Text style={{ color: colors.white, marginLeft: 5 }}>baht</Text>
+					</View>
 				</View>
 				<ScrollView style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
 					{ this.props.menus ?
@@ -53,7 +72,7 @@ export class RestaurantPage extends Component {
 							>
 								<MenuCard 
 									menuName={menu.menu_name} 
-									numberOfOrder={menu.orders?Object.keys(menu.orders).length:0} 
+									orders={menu.orders} 
 									price={menu.price}
 									key={menu.id}
 								/>

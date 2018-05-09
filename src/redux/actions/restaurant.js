@@ -29,7 +29,7 @@ const RestaurantActions = {
 			})
 			dispatch(actions.getRestaurantsSuccess(arrayData))
 		} catch (error) {
-			dispatch(actions.getRestaurantsError())
+			dispatch(actions.getRestaurantsError(error))
 		}
 
 	},
@@ -56,7 +56,7 @@ const RestaurantActions = {
 				quantity,
 				note
 			})
-			// dispatch(RestaurantActions.getMenus(restaurant_id))
+			dispatch(RestaurantActions.getOrders(restaurant_id, menu_id))
 			dispatch(ModalActions.hideCreateOrderModal())
 		} catch (error) {
 			console.log('add menu error')
@@ -73,9 +73,22 @@ const RestaurantActions = {
 			})
 			dispatch(actions.getMenusSuccess(arrayData))
 		} catch (error) {
-			dispatch(actions.getMenusError())
+			dispatch(actions.getMenusError(error))
 		}
 
+	},
+	getOrders: (restaurant_id, menu_id) => async dispatch => {
+		dispatch(actions.getOrdersRequest())
+		try {
+			const data = await db.ref(`restaurants/${restaurant_id}/menus/${menu_id}/orders`).once('value')
+			var arrayData = []
+			data.forEach((element) => {
+				arrayData.push({ ...element.val(), id: element.key })
+			})
+			dispatch(actions.getOrdersSuccess(arrayData))
+		} catch (error) {
+			dispatch(actions.getOrdersError(error))
+		}
 	},
 	setCurrentRestaurant: restaurant => ({
 		type: constants.SET_CURRENT_RESTAURANT,
@@ -108,6 +121,17 @@ const actions = {
 	}),
 	getMenusError: error => ({
 		type: constants.GET_MENUS_FAILURE,
+		payload: error
+	}),
+	getOrdersRequest: () => ({
+		type: constants.GET_ORDERS_REQUEST
+	}),
+	getOrdersSuccess: response => ({
+		type: constants.GET_ORDERS_SUCCESS,
+		payload: response
+	}),
+	getOrdersError: error => ({
+		type: constants.GET_ORDERS_FAILURE,
 		payload: error
 	})
 }
