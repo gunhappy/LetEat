@@ -83,6 +83,9 @@ export class TabMenu extends Component {
 					selectedTitleStyle={{ color: colors.blue }}
 					onPress={() => {
 						this.setState({ selectedTab: 'user' })
+						if (this.props.currentUser) {
+							this.props.getUserSummary(this.props.currentUser.uid)
+						}
 					}}
 					renderIcon={() => (
 						<IconFontAwesome name="user" size={this.px2dp(22)} color={colors.gray} />
@@ -108,7 +111,8 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-	currentPage: state.pageReducer.currentPage
+	currentPage: state.pageReducer.currentPage,
+	currentUser: state.userReducer.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -117,6 +121,9 @@ const mapDispatchToProps = dispatch => ({
 	},
 	getUsers: () => {
 		dispatch(UserActions.getUsers())
+	},
+	getUserSummary: (user_id) => {
+		dispatch(UserActions.getUserSummary(user_id))
 	}
 })
 

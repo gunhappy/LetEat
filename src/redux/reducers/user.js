@@ -4,7 +4,8 @@ const initialState = {
 	users: [],
 	currentUser: null,
 	loading: false,
-	error: false
+	error: false,
+	userSummary: null
 }
 
 export default (state = initialState, action) => {
@@ -30,6 +31,27 @@ export default (state = initialState, action) => {
 		}
         
 	case constants.GET_USERS_FAILURE:
+		return {
+			...state,
+			error: action.payload,
+			loading: false
+		}
+
+	case constants.GET_USER_SUMMARY_REQUEST:
+		return {
+			...state,
+			userSummary: null,
+			loading: true
+		}
+        
+	case constants.GET_USER_SUMMARY_SUCCESS:
+		return {
+			...state,
+			userSummary: action.payload,
+			loading: false
+		}
+        
+	case constants.GET_USER_SUMMARY_FAILURE:
 		return {
 			...state,
 			error: action.payload,

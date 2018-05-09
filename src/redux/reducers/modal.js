@@ -3,7 +3,8 @@ import constants from 'src/redux/constants'
 const initialState = {
 	showCreateRestaurantModal: false,
 	showCreateMenuModal: false,
-	showCreateOrderModal: false
+	showCreateOrderModal: false,
+	showSummaryDetailModal: false
 }
 
 export default (state = initialState, action) => {

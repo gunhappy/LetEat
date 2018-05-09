@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Platform, Image } from 'react-native'
+import { StyleSheet, View, Text, Platform, Image, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { Component } from 'react'
 import colors from 'src/constants/colors'
 import Navbar from 'src/modules/shares/Navbar'
@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { APP_FULL_WIDTH } from 'src/constants'
 import Tabs from 'src/modules/shares/Tabs'
 import UserList from 'src/modules/user/components/UserList'
+import UserActions from 'src/redux/actions/user'
+import SummaryCard from 'src/modules/user/components/SummaryCard'
 
 export class UserPage extends Component {
 
@@ -33,7 +35,31 @@ export class UserPage extends Component {
 				<View style={styles.tabsContainer}>
 					<Tabs>
 						<View title="Summary">
-							<Text>Summary</Text>
+							<ScrollView style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
+								{ this.props.userSummary ?
+									this.props.userSummary.map((summary, index) => (
+										<TouchableOpacity 
+											style={{ marginBottom: 20 }} 
+											key={index}
+											onPress={() => {
+												// this.props.setCurrentMenu(menu)
+												// this.props.setCurrentPage('menu')
+											}}
+										>
+											<SummaryCard 
+												restaurantName={summary.restaurant_name} 
+												price={summary.totalPrice} 
+												numberOfOrder={summary.numberOfOrder}
+												key={index}
+											/>
+										</TouchableOpacity>
+									))
+									: this.props.loading ?
+										<View>
+											<ActivityIndicator size="large" />
+										</View> : <View/>
+								}
+							</ScrollView>
 						</View>
 						<View title="Friends">
 							<UserList/>
@@ -60,7 +86,15 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = state => ({
-	currentUser: state.userReducer.currentUser
+	currentUser: state.userReducer.currentUser,
+	userSummary: state.userReducer.userSummary,
+	loading: state.userReducer.loading
 })
 
-export default connect(mapStateToProps, null)(UserPage)
+const mapDispatchToProps = dispatch => ({
+	getUserSummary: (user_id) => {
+		dispatch(UserActions.getUserSummary(user_id))
+	}
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage)
