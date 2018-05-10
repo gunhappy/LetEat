@@ -50,7 +50,9 @@ export class MenuPage extends Component {
 									userID={order.uid} 
 									numberOfOrder={order.quantity} 
 									note={order.note}
-									key={order.id}
+									orderID={order.id}
+									menuID={this.props.currentMenu.id}
+									restaurantID={this.props.currentRestaurant.id}
 								/>
 							</View>
 						))

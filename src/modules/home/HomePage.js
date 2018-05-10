@@ -55,7 +55,8 @@ export class HomePage extends Component {
 									restaurantName={restaurant.restaurant_name} 
 									numberOfMenu={restaurant.menus?Object.keys(restaurant.menus).length:0} 
 									creator={restaurant.creator}
-									key={restaurant.id}
+									restaurantID={restaurant.id}
+									remove={restaurant.uid===this.props.currentUser.uid}
 								/>
 							</TouchableOpacity>
 						))
@@ -95,7 +96,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
 	restaurants: state.restaurantReducer.restaurants,
-	loading: state.restaurantReducer.loading
+	loading: state.restaurantReducer.loading,
+	currentUser: state.userReducer.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

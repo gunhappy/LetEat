@@ -55,7 +55,7 @@ export class RestaurantPage extends Component {
 					</View>
 					<View style={{ alignContent: 'flex-end', flexDirection: 'row', marginRight: 40 }}>
 						<Text style={{ color: colors.white }}>Total</Text>
-						<Text style={{ color: colors.white, marginLeft: 5 }}>{this.props.menus?this.calculatePrice():0}</Text>
+						<Text style={{ color: colors.white, marginLeft: 10 }}>{this.props.menus?this.calculatePrice():0}</Text>
 						<Text style={{ color: colors.white, marginLeft: 5 }}>baht</Text>
 					</View>
 				</View>
@@ -74,7 +74,8 @@ export class RestaurantPage extends Component {
 									menuName={menu.menu_name} 
 									orders={menu.orders} 
 									price={menu.price}
-									key={menu.id}
+									menuID={menu.id}
+									restaurantID={this.props.currentRestaurant.id}
 								/>
 							</TouchableOpacity>
 						))
