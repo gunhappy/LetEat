@@ -34,10 +34,10 @@ export class UserPage extends Component {
 					</View>
 					<Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 18 }}>{this.props.currentUser.displayName}</Text>
 				</View>
-				<View style={styles.tabsContainer}>
+				<ScrollView style={styles.tabsContainer}>
 					<Tabs>
 						<View title="Summary">
-							<ScrollView style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
+							<View style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
 								{ this.props.userSummary ?
 									this.props.userSummary.map((summary, index) => (
 										<TouchableOpacity 
@@ -61,15 +61,13 @@ export class UserPage extends Component {
 											<ActivityIndicator size="large" />
 										</View> : <View/>
 								}
-							</ScrollView>
+							</View>
 						</View>
 						<View title="Friends">
-							<ScrollView>
-								<UserList/>
-							</ScrollView>
+							<UserList/>
 						</View>
 					</Tabs>
-				</View>
+				</ScrollView>
 				<SummaryDetailModal />
 			</View>
 		)
