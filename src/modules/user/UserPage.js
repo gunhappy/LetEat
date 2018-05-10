@@ -64,7 +64,9 @@ export class UserPage extends Component {
 							</ScrollView>
 						</View>
 						<View title="Friends">
-							<UserList/>
+							<ScrollView>
+								<UserList/>
+							</ScrollView>
 						</View>
 					</Tabs>
 				</View>
