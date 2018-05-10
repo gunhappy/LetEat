@@ -97,7 +97,34 @@ const RestaurantActions = {
 	setCurrentMenu: menu => ({
 		type: constants.SET_CURRENT_MENU,
 		payload: menu
-	})
+	}),
+	removeRestaurant: (restaurant_id) => async dispatch => {
+		try {
+			const restaurantRef = db.ref(`/restaurants/${restaurant_id}`)
+			await restaurantRef.remove()
+			dispatch(RestaurantActions.getRestaurants())
+		} catch (error) {
+			console.log('remove restaurant error')
+		}
+	},
+	removeMenu: (restaurant_id, menu_id) => async dispatch => {
+		try {
+			const menuRef = db.ref(`/restaurants/${restaurant_id}/menus/${menu_id}`)
+			await menuRef.remove()
+			dispatch(RestaurantActions.getMenus(restaurant_id))
+		} catch (error) {
+			console.log('remove menu error')
+		}
+	},
+	removeOrder: (restaurant_id, menu_id, order_id) => async dispatch => {
+		try {
+			const orderRef = db.ref(`/restaurants/${restaurant_id}/menus/${menu_id}/orders/${order_id}`)
+			await orderRef.remove()
+			dispatch(RestaurantActions.getOrders(restaurant_id, menu_id))
+		} catch (error) {
+			console.log('remove order error')
+		}
+	}
 }
 
 const actions = {
