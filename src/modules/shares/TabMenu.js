@@ -65,10 +65,10 @@ export class TabMenu extends Component {
 						this.setState({ selectedTab: 'home' })
 					}}
 					renderIcon={() => (
-						<IconMaterialCommunity name="food" size={this.px2dp(26)} color={colors.gray} />
+						<IconMaterialCommunity name="food" size={this.px2dp(28)} color={colors.gray} />
 					)}
 					renderSelectedIcon={() => (
-						<IconMaterialCommunity name="food" size={this.px2dp(26)} color={colors.orange} />
+						<IconMaterialCommunity name="food" size={this.px2dp(28)} color={colors.orange} />
 					)}
 				>
 					{this.props.currentPage === 'restaurant'?
