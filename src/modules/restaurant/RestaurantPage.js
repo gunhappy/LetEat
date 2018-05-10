@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Platform, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Platform, ActivityIndicator, ScrollView, TouchableOpacity, RefreshControl } from 'react-native'
 import React, { Component } from 'react'
 import colors from 'src/constants/colors'
 import Navbar from 'src/modules/shares/Navbar'
@@ -23,6 +23,10 @@ export class RestaurantPage extends Component {
 
 	fetchData() {
 		this.props.getMenus(this.props.currentRestaurant.id)
+	}
+
+	refreshData () {
+		this.fetchData()
 	}
 	
 	calculatePrice() {
@@ -59,7 +63,15 @@ export class RestaurantPage extends Component {
 						<Text style={{ color: colors.white, marginLeft: 5 }}>baht</Text>
 					</View>
 				</View>
-				<ScrollView style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
+				<ScrollView 
+					style={{ marginTop: 20, marginLeft: 40, marginRight: 40 }}
+					refreshControl={
+						<RefreshControl
+							refreshing={this.props.loading}
+							onRefresh={() => this.refreshData()}
+						/>
+					}
+				>
 					{ this.props.menus ?
 						this.props.menus.map((menu, index) => (
 							<TouchableOpacity 
@@ -79,10 +91,7 @@ export class RestaurantPage extends Component {
 								/>
 							</TouchableOpacity>
 						))
-						: this.props.loading ?
-							<View>
-								<ActivityIndicator size="large" />
-							</View> : <View/>
+						: <View/>
 					}
 				</ScrollView>
 				<FloatingAction

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Platform, ActivityIndicator, ScrollView } from 'react-native'
+import { StyleSheet, View, Text, Platform, ActivityIndicator, ScrollView, RefreshControl } from 'react-native'
 import React, { Component } from 'react'
 import colors from 'src/constants/colors'
 import Navbar from 'src/modules/shares/Navbar'
@@ -24,6 +24,10 @@ export class MenuPage extends Component {
 		this.props.getOrders(this.props.currentRestaurant.id, this.props.currentMenu.id)
 	}
 
+	refreshData () {
+		this.fetchData()
+	}
+
 	render() {
 		const actions = [{
 			text: 'Add Order',
@@ -39,7 +43,15 @@ export class MenuPage extends Component {
 				<View style={{ marginTop: 20, marginLeft: 40 }}>
 					<Text style={{ color: colors.white, fontWeight: 'bold', fontSize: 18 }}>Order</Text>
 				</View>
-				<ScrollView style={{ marginTop: 20, paddingLeft: 40, paddingRight: 40 }}>
+				<ScrollView 
+					style={{ marginTop: 20, marginLeft: 40, marginRight: 40 }}
+					refreshControl={
+						<RefreshControl
+							refreshing={this.props.loading}
+							onRefresh={() => this.refreshData()}
+						/>
+					}
+				>
 					{ this.props.orders ?
 						this.props.orders.map((order, index) => (
 							<View 
@@ -56,10 +68,7 @@ export class MenuPage extends Component {
 								/>
 							</View>
 						))
-						: this.props.loading ?
-							<View>
-								<ActivityIndicator size="large" />
-							</View> : <View/>
+						: <View/>
 					}
 				</ScrollView>
 				<FloatingAction

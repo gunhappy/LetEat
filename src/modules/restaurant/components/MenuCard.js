@@ -37,14 +37,6 @@ export class MenuCard extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<TouchableOpacity
-					style={{ zIndex: 1, position: 'absolute', right: 10, top: 10 }}
-					onPress={ () => {
-						this.remove()
-					}}	
-				>
-					<MaterialIcons name='close' size={30} color='red'/>
-				</TouchableOpacity>
 				<Text style={{ color: colors.white, fontWeight: 'bold', marginTop: 20 }}>{this.props.menuName}</Text>
 				<Text style={{ color: colors.white, marginTop: 10, marginBottom: 20 }}>{this.props.price} baht</Text>
 				<Text style={{ color: colors.white, marginBottom: 10 }}>{this.calculateNumberOrder()} {this.calculateNumberOrder() > 1? 'orders': 'order'}</Text>
