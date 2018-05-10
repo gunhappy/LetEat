@@ -82,8 +82,7 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.background
 	},
 	header: {
-		height: Platform.OS === 'ios' ? 75 : 60,
-		paddingTop: Platform.OS === 'ios' ? 25 : 8
+		height: Platform.OS === 'ios' ? 75 : 60
 	},
 	tabsContainer: {
 		marginTop: 20
